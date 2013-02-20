@@ -1,0 +1,8 @@
+*~
+*.swp
+tags
+*.beam
+*.app
+*.dump
+log/
+deps/

@@ -1,0 +1,12 @@
+{application, love,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { love_app, []}},
+  {env, []}
+ ]}.
