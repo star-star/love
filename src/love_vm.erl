@@ -3,6 +3,7 @@
 -include("love_ope.hrl").
 
 -export([new/0,
+         open/1,
          run/1,
          c/1]).
 
@@ -15,6 +16,13 @@
              ip,
              code}).
 
+-include_lib("kernel/include/file.hrl").
+
+open(Filename) ->
+    {ok, IoDevice} = file:open(Filename, [read, {encoding, utf8}]),
+    {ok, FileInfo = #file_info{size = Size}} = file:read_file_info(Filename),
+    io:format("~p~n", [FileInfo]),
+    file:read(IoDevice, Size).
 
 c(Filename)->
         {ok,Data} = file:read_file(Filename),
