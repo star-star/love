@@ -1,9 +1,9 @@
--define(G,16#8349/utf8). %unicode
--define(M,16#6CE5/utf8).
--define(H,16#9A6C/utf8).
-%-define(G, $a). %unicode
-%-define(M, $b).
-%-define(H, $c).
+%-define(G,16#8349/utf8). %unicode
+%-define(M,16#6CE5/utf8).
+%-define(H,16#9A6C/utf8).
+-define(G, $a). %unicode
+-define(M, $b).
+-define(H, $c).
 
 -define(PUSH,?G,?G).
 -define(DUP, ?G,?H,?G).
@@ -28,8 +28,8 @@
 -define(JNZ, ?H,?M,?M).
 -define(RET, ?H,?M,?H).
 -define(EXIT,?H,?H,?H).
-%-define(EXIT2, $d, $d).
--define(EXIT2,16#6CB3/utf8,16#87F9/utf8).
+-define(EXIT2, $d, $d).
+%-define(EXIT2,16#6CB3/utf8,16#87F9/utf8).
 
 -define(IINT,?M,?H,?M,?M).
 -define(OINT,?M,?H,?G,?M).

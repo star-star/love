@@ -6,7 +6,11 @@
          run/1,
          c/1]).
 
--record(vm, {stack,
+-define(VM_MODE_NORMAL, 0).
+-define(VM_MODE_DEBUG, 1).
+
+-record(vm, {mode = ?VM_MODE_DEBUG,
+             stack,
              heap,
              ip,
              code}).
@@ -22,19 +26,20 @@ new() ->
     {ok, #vm{stack = [],
              heap  = []}}.
 
-run(#vm{code = Code}) ->
-    run_ope(Code).
+run(VM = #vm{code = Code}) ->
+    run_ope(VM, Code).
 
-run_ope(<<?PUSH, Rest/binary>>) ->
+
+
+run_ope(VM = #vm{mode = Mode}, <<?PUSH, Rest/binary>>) ->
     {ok, Num, Rest2} = compile_number(Rest),
-    lager:info("push ~p", [Num]),
-    run_ope(Rest2);
+    Mode =:= ?VM_MODE_DEBUG andalso lager:info("push ~p", [Num]),
+    run_ope(VM, Rest2);
     
+run_ope(#vm{mode = Mode}, <<?EXIT2, _Rest/binary>>) ->
+    Mode  =:= ?VM_MODE_DEBUG andalso lager:info("exit");
 
-run_ope(<<?EXIT2, _Rest/binary>>) ->
-    lager:info("exit");
-
-run_ope(Code) ->
+run_ope(_VM, Code) ->
     lager:info("unknown code:", [Code]).
 
 
